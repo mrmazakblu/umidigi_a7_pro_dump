@@ -1,0 +1,27 @@
+#sensor service (begin)
+#
+
+on post-fs-data
+
+    ##MXC4005XC
+    chmod 0660 /dev/mxc4005xc
+    chown system system /dev/mxc4005xc
+
+    #MXC4005
+    chmod 0777 /vendor/bin/memsicp
+    chown root root /vendor/bin/memsicp
+
+service memsicp /vendor/bin/memsicp
+    oneshot    
+    user system
+    group system
+    class main
+#add by moqinlin for check efuse state
+service writemac /system/bin/xunhuefuse
+    class late_start
+    user root
+    group root
+    oneshot
+#add end   
+
+import /vendor/etc/init/hw/init.fingerprint.rc

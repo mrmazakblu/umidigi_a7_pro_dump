@@ -1,0 +1,27 @@
+# add for fpsensor Fingerprint selinux
+on init
+    chmod 0666 /dev/fpsensor
+    chown system system /dev/fpsensor
+    mkdir /data/fpsensor
+    chown system system /data/fpsensor
+    chmod 0666 /data/fpsensor/socket
+    chown system system /data/fpsensor/socket
+    chmod 0777 /dev/cs_spi
+    chown system system /dev/cs_spi
+# end  fpsensor Fingerprint selinux
+
+# add for sunwave tee Fingerprint
+on fs
+    chown system system /dev/sunwave_fp
+    chmod 0666 /dev/sunwave_fp
+# end sunwave Fingerprint
+
+# add for cdfinger tee Fingerprint
+	chmod 0666 /dev/fpsdev0
+	chown system system dev/fpsdev0
+service swfingerprint-hal-1.0 /vendor/bin/hw/vendor.sw.swfingerprint@1.0-service
+    class late_start
+    user system
+    group system
+# end cdfinger tee Fingerprint
+
